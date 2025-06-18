@@ -1,75 +1,91 @@
+// SupplyOrder.java
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 public class SupplyOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderId;
+    private Long id;
 
-    private String status;
-    private LocalDate orderDate;
-    private LocalDate deliveryDate;
-    private Double totalAmount;
+    private String specificationName;
+
+    private String orderType;
+
+    private String supplyType;
+
+    private String orderDate;
+
+    private String deliveryDate;
+
+    private boolean active; // 🔥 вот это поле нужно
 
     @ManyToOne
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
-    //public Supplier getSupplier() {
-    //    return supplier;
-    //}
 
-   //public void setSupplier(Supplier supplier) {
-    //    this.supplier = supplier;
-    //}
+    // --- Геттеры и сеттеры ---
 
-    // Геттеры и сеттеры
-
-    public Long getOrderId() {
-        return orderId;
+    public Long getId() {
+        return id;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public String getSpecificationName() {
+        return specificationName;
     }
 
-    public String getStatus() {
-        return status;
+    public String getOrderType() {
+        return orderType;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public String getSupplyType() {
+        return supplyType;
     }
 
-    public LocalDate getOrderDate() {
+    public String getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(LocalDate orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    public LocalDate getDeliveryDate() {
+    public String getDeliveryDate() {
         return deliveryDate;
     }
 
-    public void setDeliveryDate(LocalDate deliveryDate) {
-        this.deliveryDate = deliveryDate;
-    }
-
-    public Double getTotalAmount() {
-        return totalAmount;
-    }
-
-    public void setTotalAmount(Double totalAmount) {
-        this.totalAmount = totalAmount;
+    public boolean isActive() {
+        return active;
     }
 
     public Supplier getSupplier() {
         return supplier;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setSpecificationName(String specificationName) {
+        this.specificationName = specificationName;
+    }
+
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
+    }
+
+    public void setSupplyType(String supplyType) {
+        this.supplyType = supplyType;
+    }
+
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public void setDeliveryDate(String deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public void setSupplier(Supplier supplier) {

@@ -2,37 +2,70 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
-@Table(name = "suppliers")
 public class Supplier {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long supplierId;
+    private Long id;
 
     private String name;
     private String contactName;
     private String phone;
     private String email;
 
-    // геттеры и сеттеры
-    public Long getSupplierId() { return supplierId; }
+    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
+    private List<SupplyOrder> orders;
 
-    public void setSupplierId(Long supplierId) { this.supplierId = supplierId; }
+    // --- Геттеры и сеттеры ---
 
-    public String getName() { return name; }
+    public Long getId() {
+        return id;
+    }
 
-    public void setName(String name) { this.name = name; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getContactName() { return contactName; }
+    public String getName() {
+        return name;
+    }
 
-    public void setContactName(String contactName) { this.contactName = contactName; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public String getPhone() { return phone; }
+    public String getContactName() {
+        return contactName;
+    }
 
-    public void setPhone(String phone) { this.phone = phone; }
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
+    }
 
-    public String getEmail() { return email; }
+    public String getPhone() {
+        return phone;
+    }
 
-    public void setEmail(String email) { this.email = email; }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public List<SupplyOrder> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<SupplyOrder> orders) {
+        this.orders = orders;
+    }
 }

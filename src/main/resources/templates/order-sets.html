@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Комплекты заказа</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-4">
+<h2 th:text="'Комплекты для заказа: ' + ${order.specificationName}"></h2>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Название комплекта</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="set : ${sets}">
+        <td th:text="${set.id}">1</td>
+        <td th:text="${set.name}">Комплект A</td>
+    </tr>
+    </tbody>
+</table>
+
+<h4>Добавить комплект</h4>
+<form th:action="@{/orders/{id}/sets(id=${order.id})}" th:object="${newSet}" method="post">
+    <div class="mb-3">
+        <label for="name" class="form-label">Название:</label>
+        <input type="text" class="form-control" id="name" th:field="*{name}" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить</button>
+</form>
+</body>
+</html>
