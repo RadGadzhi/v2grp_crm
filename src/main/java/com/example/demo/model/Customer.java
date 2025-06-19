@@ -1,25 +1,38 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-
 import java.util.List;
 
 @Entity
-public class Supplier {
+@Table(name = "customers")
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "customer_id") // Ensure it matches your DB column
     private Long id;
 
     private String name;
     private String contactName;
-    private String phone;
     private String email;
+    private String phone;
 
-    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<SupplyOrder> orders;
 
-    // --- Геттеры и сеттеры ---
+    // --- Constructors ---
+
+    public Customer() {
+    }
+
+    public Customer(String name, String contactName, String email, String phone) {
+        this.name = name;
+        this.contactName = contactName;
+        this.email = email;
+        this.phone = phone;
+    }
+
+    // --- Getters and Setters ---
 
     public Long getId() {
         return id;
@@ -45,20 +58,20 @@ public class Supplier {
         this.contactName = contactName;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public List<SupplyOrder> getOrders() {

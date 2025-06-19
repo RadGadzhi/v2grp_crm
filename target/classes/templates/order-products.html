@@ -1,27 +1,62 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Выбор заказа для добавления продукта</title>
+    <title>Добавление товаров в заказ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
-<body>
-<h1>Список заказов</h1>
+<body class="container mt-4">
+<h2>Добавить товар в заказ</h2>
 
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Название спецификации</th>
-        <th>Дата заказа</th>
-        <th>Действия</th>
-    </tr>
-    <tr th:each="order : ${orders}">
-        <td th:text="${order.id}">1</td>
-        <td th:text="${order.specificationName}">Спецификация 1</td>
-        <td th:text="${order.orderDate}">2025-06-17</td>
-        <td>
-            <a th:href="@{'/orders/' + ${order.id} + '/add-product'}" class="btn btn-sm btn-outline-success">Добавить продукт</a>
-        </td>
+<form id="productForm">
+    <div class="mb-3">
+        <label for="productName" class="form-label">Название товара</label>
+        <input type="text" class="form-control" id="productName" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Найти или создать</button>
+</form>
 
-    </tr>
-</table>
+<div id="result" class="mt-4"></div>
+
+<script>
+    $('#productForm').on('submit', function (e) {
+        e.preventDefault();
+        const name = $('#productName').val();
+
+        $.get('/products/search', {name: name})
+            .done(function (product) {
+                $('#result').html(
+                    `<div class="alert alert-success">
+                        Найден товар: <strong>${product.name}</strong><br/>
+                        Код: ${product.code}<br/>
+                        Ед.изм.: ${product.unit}
+                    </div>`
+                );
+            })
+            .fail(function () {
+                $('#result').html(
+                    `<div class="alert alert-warning">
+                        Товар не найден. <button class="btn btn-sm btn-outline-primary" id="createBtn">Создать</button>
+                    </div>`
+                );
+
+                $('#createBtn').on('click', function () {
+                    const code = prompt("Введите код товара:");
+                    const unit = prompt("Введите единицу измерения:");
+                    $.post('/products/create', {name: name, code: code, unit: unit})
+                        .done(function (product) {
+                            $('#result').html(
+                                `<div class="alert alert-success">
+                                    Товар создан: <strong>${product.name}</strong><br/>
+                                    Код: ${product.code}<br/>
+                                    Ед.изм.: ${product.unit}
+                                </div>`
+                            );
+                        });
+                });
+            });
+    });
+</script>
+
 </body>
 </html>

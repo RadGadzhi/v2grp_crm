@@ -1,94 +1,78 @@
-// SupplyOrder.java
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 public class SupplyOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long orderId;
 
-    private String specificationName;
-
-    private String orderType;
-
-    private String supplyType;
-
-    private String orderDate;
-
-    private String deliveryDate;
-
-    private boolean active; // 🔥 вот это поле нужно
+    private String status;
+    private LocalDate orderDate;
+    private LocalDate deliveryDate;
+    private Double totalAmount;
 
     @ManyToOne
-    @JoinColumn(name = "supplier_id")
-    private Supplier supplier;
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+    //public Customer getCustomer() {
+    //    return customer;
+    //}
 
-    // --- Геттеры и сеттеры ---
+   //public void setCustomer(Customer customer) {
+    //    this.customer = customer;
+    //}
 
-    public Long getId() {
-        return id;
+    // Геттеры и сеттеры
+
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public String getSpecificationName() {
-        return specificationName;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
-    public String getOrderType() {
-        return orderType;
+    public String getStatus() {
+        return status;
     }
 
-    public String getSupplyType() {
-        return supplyType;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public String getOrderDate() {
+    public LocalDate getOrderDate() {
         return orderDate;
     }
 
-    public String getDeliveryDate() {
-        return deliveryDate;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public Supplier getSupplier() {
-        return supplier;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setSpecificationName(String specificationName) {
-        this.specificationName = specificationName;
-    }
-
-    public void setOrderType(String orderType) {
-        this.orderType = orderType;
-    }
-
-    public void setSupplyType(String supplyType) {
-        this.supplyType = supplyType;
-    }
-
-    public void setOrderDate(String orderDate) {
+    public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
 
-    public void setDeliveryDate(String deliveryDate) {
+    public LocalDate getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(LocalDate deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public Double getTotalAmount() {
+        return totalAmount;
     }
 
-    public void setSupplier(Supplier supplier) {
-        this.supplier = supplier;
+    public void setTotalAmount(Double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

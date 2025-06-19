@@ -11,11 +11,11 @@
     <form th:action="@{/orders/save}" th:object="${order}" method="post" class="mt-3">
 
         <div class="mb-3">
-            <label for="supplier" class="form-label">Заказчик</label>
-            <select th:field="*{supplier}" class="form-select" required>
-                <option th:each="supplier : ${suppliers}" 
-                        th:value="${supplier}" 
-                        th:text="${supplier.name}">Заказчик</option>
+            <label for="customer" class="form-label">Заказчик</label>
+            <select th:field="*{customer}" class="form-select" required>
+                <option th:each="customer : ${customers}" 
+                        th:value="${customer}" 
+                        th:text="${customer.name}">Заказчик</option>
             </select>
         </div>
 
